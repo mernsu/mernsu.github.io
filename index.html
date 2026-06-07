@@ -3,46 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>静室 · The Quiet Room</title>
+  <title>Mernsu · 大模型应用开发</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ═══════════════════════════════════════════════════════════════════
-       THE READING ROOM · 静室
-       A personal blog designed around the aesthetic of a scholar's desk:
-       handmade ivory paper, sumi ink, vermillion seal paste, jade
-       paperweights, and brass desk fittings.
-
-       Color foundation — five pigments on ivory:
-       – Ivory paper: the desk surface, warm and textured
-       – Sumi ink: deep charcoal-black with warmth, never pure #000
-       – Vermillion: seal-paste red, the primary accent
-       – Celadon: muted jade-green, the quiet secondary
-       – Brass: warm metallic, for borders and fine rules
-
-       Typographic hierarchy —
-       – Fraunces for headings: a warm, humanist serif with character
-       – Crimson Pro for body: a reading-optimized serif, understated
-       – DM Mono for metadata: small, precise, like library catalog cards
-       – Noto Serif SC for Chinese text: balanced with the Latin serifs
-       ═══════════════════════════════════════════════════════════════════ */
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* ── Pigments ─────────────────────────── */
       --paper:         #FEF9EE;
       --paper-warm:    #FBF2E1;
       --paper-cool:    #F7F1E6;
-      --paper-deep:    #F0E6D5;
       --ink:           #1C1915;
       --ink-soft:      #4A4540;
       --ink-muted:     #8A8278;
       --vermillion:    #C55032;
       --vermillion-bright: #D96545;
-      --vermillion-dark:   #A04028;
       --vermillion-pale:   #F2D4C8;
       --celadon:       #7D9072;
       --celadon-soft:  #A3B69A;
@@ -50,37 +27,29 @@
       --brass:         #B8A280;
       --brass-light:   #D4C5A9;
       --indigo:        #2C3648;
-
-      /* ── Tokens ───────────────────────────── */
       --border:        rgba(184, 162, 128, 0.22);
       --border-strong: rgba(184, 162, 128, 0.45);
-      --shadow-card:   0 1px 3px rgba(28, 25, 21, 0.04), 0 1px 2px rgba(28, 25, 21, 0.02);
-      --shadow-card-hover: 0 6px 20px rgba(28, 25, 21, 0.07), 0 1px 4px rgba(28, 25, 21, 0.03);
-      --shadow-featured: 0 2px 8px rgba(28, 25, 21, 0.05), 0 8px 32px rgba(28, 25, 21, 0.06);
-      --radius-sm:     3px;
-      --radius-md:     6px;
-      --radius-lg:     12px;
-      --ease:          0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      --ease-spring:   0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      --shadow-sm: 0 1px 3px rgba(28,25,21,0.04);
+      --shadow-md: 0 6px 20px rgba(28,25,21,0.07);
+      --shadow-lg: 0 12px 40px rgba(28,25,21,0.08);
+      --radius-sm: 3px;
+      --radius-md: 6px;
+      --radius-lg: 12px;
+      --ease: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    html {
-      scroll-behavior: smooth;
-      background: var(--paper);
-    }
+    html { scroll-behavior: smooth; background: var(--paper); }
 
     body {
       font-family: 'Crimson Pro', 'Noto Serif SC', 'Georgia', serif;
-      font-size: 1.125rem;
+      font-size: 1.1rem;
       line-height: 1.7;
       color: var(--ink);
       background: var(--paper);
       -webkit-font-smoothing: antialiased;
       position: relative;
-      min-height: 100vh;
     }
 
-    /* ── Paper grain ──────────────────────────── */
     body::after {
       content: '';
       position: fixed;
@@ -93,49 +62,61 @@
       background-size: 220px 220px;
     }
 
-    /* ═════════════════════════════════════════════════════════════════
-       MASTHEAD
-       Minimal and refined — just the journal name and quiet navigation.
-       ═════════════════════════════════════════════════════════════════ */
+    /* ════ TYPOGRAPHY ════ */
+    h1, h2, h3, h4 {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
 
-    .masthead {
+    .mono {
+      font-family: 'DM Mono', 'SF Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    a { color: var(--vermillion); text-decoration: none; transition: color var(--ease); }
+    a:hover { color: var(--vermillion-bright); }
+
+    /* ════ LAYOUT ════ */
+    .container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 3.5rem 2.5rem 0;
+      padding: 0 2.5rem;
+    }
+
+    /* ════ MASTHEAD ════ */
+    .masthead {
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
     }
 
     .masthead-inner {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem 2rem;
-      padding-bottom: 1.2rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .masthead .logo {
-      font-family: 'Fraunces', 'Noto Serif SC', serif;
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.03em;
-      text-decoration: none;
-      display: flex;
       align-items: baseline;
-      gap: 0.6rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .masthead .logo .zh {
+    .masthead .identity {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-size: 1.5rem;
       font-weight: 600;
+      letter-spacing: -0.03em;
+      color: var(--ink);
     }
 
-    .masthead .logo .en {
-      font-weight: 300;
+    .masthead .identity .role {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 400;
       font-style: italic;
-      font-size: 1.05rem;
       color: var(--ink-muted);
-      letter-spacing: 0.01em;
+      letter-spacing: 0;
+      margin-top: 0.15rem;
     }
 
     .masthead-nav {
@@ -146,83 +127,36 @@
 
     .masthead-nav a {
       font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--ink-muted);
-      text-decoration: none;
       padding-bottom: 4px;
       border-bottom: 1px solid transparent;
       transition: all var(--ease);
     }
 
-    .masthead-nav a:hover,
-    .masthead-nav a.active {
-      color: var(--vermillion);
-      border-bottom-color: var(--vermillion);
-    }
+    .masthead-nav a:hover { color: var(--vermillion); border-bottom-color: var(--vermillion); }
 
-    /* ── Ornamental rule ───────────────────────── */
     .ornamental-rule {
       margin-top: 1.2rem;
       height: 4px;
-      background: linear-gradient(90deg,
-        var(--vermillion) 0%,
-        var(--vermillion) 8px,
-        transparent 8px,
-        transparent 16px,
-        var(--brass) 16px,
-        var(--brass) 80px,
-        var(--celadon-soft) 80px,
-        var(--celadon-soft) 88px,
-        transparent 88px
-      );
+      background: linear-gradient(90deg, var(--vermillion) 0%, var(--vermillion) 8px, transparent 8px, transparent 16px, var(--brass) 16px, var(--brass) 80px, var(--celadon-soft) 80px, var(--celadon-soft) 88px, transparent 88px);
       opacity: 0.7;
     }
 
-    /* ═════════════════════════════════════════════════════════════════
-       MAIN CONTENT AREA
-       ═════════════════════════════════════════════════════════════════ */
-
-    .main-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.8rem 2.5rem 4rem;
+    /* ════ HERO ════ */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
     }
 
-    /* ── Featured Article ──────────────────────── */
-    .featured {
-      position: relative;
-      margin-bottom: 4.5rem;
-      padding: 3rem 3.2rem;
-      background: linear-gradient(160deg, var(--paper-warm) 0%, var(--paper) 40%, var(--paper-cool) 100%);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-featured);
-      transition: box-shadow var(--ease), transform var(--ease);
-    }
-
-    .featured:hover {
-      box-shadow: 0 4px 16px rgba(28, 25, 21, 0.08), 0 12px 40px rgba(28, 25, 21, 0.07);
-    }
-
-    /* Decorative top stripe */
-    .featured::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 2rem; right: 2rem;
-      height: 3px;
-      background: linear-gradient(90deg, var(--vermillion), var(--brass), var(--celadon-soft));
-      border-radius: 0 0 2px 2px;
-    }
-
-    .featured .flag {
+    .hero-tag {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       font-family: 'DM Mono', monospace;
       font-size: 0.68rem;
-      letter-spacing: 0.11em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--vermillion);
       margin-bottom: 1.2rem;
@@ -232,348 +166,456 @@
       background: rgba(197, 80, 50, 0.04);
     }
 
-    .featured h2 {
-      font-family: 'Fraunces', 'Noto Serif SC', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    .hero h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
       font-weight: 600;
-      line-height: 1.18;
-      letter-spacing: -0.025em;
-      color: var(--ink);
-      margin-bottom: 0.9rem;
-      max-width: 85%;
+      max-width: 700px;
+      margin-bottom: 1rem;
+      line-height: 1.25;
     }
 
-    .featured h2 a { color: inherit; text-decoration: none; }
-    .featured h2 a:hover { color: var(--vermillion); }
-
-    .featured .dek {
-      font-size: 1.15rem;
+    .hero .summary {
+      font-size: 1.1rem;
       color: var(--ink-soft);
-      max-width: 62%;
-      margin-bottom: 1.6rem;
-      line-height: 1.6;
-      text-wrap: pretty;
+      max-width: 620px;
+      line-height: 1.7;
     }
 
-    .featured .meta-row {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-      font-size: 0.88rem;
-      color: var(--ink-muted);
-    }
-
-    .featured .reading-time {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--celadon);
-      letter-spacing: 0.05em;
-    }
-
-    .featured .tag {
-      display: inline-block;
-      padding: 0.2rem 0.7rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.66rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--celadon);
-      border: 1px solid var(--celadon-soft);
-      border-radius: 100px;
-      text-decoration: none;
-      transition: all var(--ease);
-    }
-
-    .featured .tag:hover {
-      background: var(--celadon);
-      color: #fff;
-      border-color: var(--celadon);
-    }
-
-    /* ── Section divider ──────────────────────── */
-    .section-divider {
+    /* ════ SECTION HEADERS ════ */
+    .section-head {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 2.2rem;
+      margin: 3.5rem 0 1.8rem;
     }
 
-    .section-divider .numeral {
+    .section-head .numeral {
       font-family: 'Fraunces', serif;
-      font-size: 0.85rem;
-      font-weight: 300;
       font-style: italic;
+      font-size: 0.85rem;
       color: var(--vermillion);
       opacity: 0.7;
     }
 
-    .section-divider h3 {
-      font-family: 'Fraunces', 'Noto Serif SC', serif;
+    .section-head h3 {
       font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--ink);
       white-space: nowrap;
-      letter-spacing: -0.01em;
     }
 
-    .section-divider .rule {
+    .section-head .rule {
       flex: 1;
       height: 1px;
       background: var(--border);
     }
 
-    /* ── Essay Grid (3-column asymmetric) ──────── */
-    .essay-grid {
+    /* ════ SKILLS ════ */
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.2rem;
     }
 
-    .essay {
-      position: relative;
-      background: var(--paper);
+    .skill-card {
+      background: var(--paper-warm);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: 1.6rem 1.5rem 1.5rem;
+      padding: 1.5rem 1.6rem;
       transition: all var(--ease);
+      position: relative;
       overflow: hidden;
     }
 
-    .essay:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow-card-hover);
-    }
-
-    /* Left-edge bookmark accent — colors vary per position */
-    .essay::before {
+    .skill-card::before {
       content: '';
       position: absolute;
-      left: 0; top: 0.8rem; bottom: 0.8rem;
+      left: 0; top: 0.6rem; bottom: 0.6rem;
       width: 3px;
       border-radius: 0 2px 2px 0;
       background: var(--brass-light);
       transition: background var(--ease), width 0.35s ease;
     }
 
-    .essay:hover::before { width: 5px; background: var(--vermillion); }
+    .skill-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .skill-card:hover::before { width: 5px; background: var(--vermillion); }
 
-    .essay:nth-child(3n)::before { background: var(--celadon-soft); }
-    .essay:nth-child(3n):hover::before { background: var(--celadon); }
-    .essay:nth-child(5n + 2)::before { background: var(--brass); }
-    .essay:nth-child(5n + 2):hover::before { background: var(--vermillion); }
+    .skill-card:nth-child(2)::before { background: var(--celadon-soft); }
+    .skill-card:nth-child(2):hover::before { background: var(--celadon); }
+    .skill-card:nth-child(3)::before { background: var(--brass); }
+    .skill-card:nth-child(3):hover::before { background: var(--vermillion); }
 
-    /* Size variants */
-    .essay--wide {
-      grid-column: span 2;
-      padding: 2rem 2rem 1.8rem;
+    .skill-card .skill-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
     }
 
-    .essay--tall {
-      grid-row: span 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: linear-gradient(180deg, var(--paper-warm) 0%, var(--paper) 100%);
+    .skill-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
     }
 
-    /* Card header: date + tag */
-    .essay .card-head {
+    .skill-card .skill-tags {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(197,80,50,0.06);
+      color: var(--vermillion);
+      border: 1px solid var(--vermillion-pale);
+    }
+
+    .skill-tag.green {
+      background: rgba(125,144,114,0.06);
+      color: var(--celadon);
+      border-color: var(--celadon-pale);
+    }
+
+    .skill-tag.brass {
+      background: rgba(184,162,128,0.08);
+      color: #8B7A5E;
+      border-color: #E0D6C0;
+    }
+
+    /* ════ PROJECTS ════ */
+    .project {
+      margin-bottom: 3rem;
+      background: linear-gradient(160deg, var(--paper-warm) 0%, var(--paper) 40%, var(--paper-cool) 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .project-header {
+      padding: 2.5rem 2.8rem 0;
+    }
+
+    .project .project-flag {
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 0.7rem;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--vermillion);
+      margin-bottom: 0.8rem;
     }
 
-    .essay .date {
+    .project .project-flag::before {
+      content: '';
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--vermillion);
+      border-radius: 50%;
+    }
+
+    .project h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .project .project-subtitle {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+
+    .project .gh-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
       font-family: 'DM Mono', monospace;
       font-size: 0.68rem;
-      letter-spacing: 0.06em;
       color: var(--ink-muted);
+      margin-bottom: 1.5rem;
     }
 
-    .essay .category {
+    .project .gh-link:hover { color: var(--vermillion); }
+
+    /* Tech stack bar */
+    .project .tech-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .project .tech-bar .tech {
       font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      /* Seal-stamp style */
-      color: var(--vermillion);
-      padding: 0.15rem 0.55rem;
-      border: 1px solid var(--vermillion-pale);
-      border-radius: 3px;
-      background: rgba(197, 80, 50, 0.03);
+      font-size: 0.64rem;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-sm);
+      background: rgba(28,25,21,0.04);
+      color: var(--ink-soft);
+      border: 1px solid rgba(28,25,21,0.08);
     }
 
-    .essay .category.cat-tech { color: var(--celadon); border-color: var(--celadon-pale); background: rgba(125, 144, 114, 0.04); }
-    .essay .category.cat-reading { color: #8B6F47; border-color: #E8DCC8; background: rgba(139, 111, 71, 0.04); }
-    .essay .category.cat-life { color: #7A8B9A; border-color: #D8E0E8; background: rgba(122, 139, 154, 0.04); }
-
-    .essay h4 {
-      font-family: 'Fraunces', 'Noto Serif SC', serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      line-height: 1.25;
-      letter-spacing: -0.015em;
-      margin-bottom: 0.45rem;
+    /* Feature list */
+    .project .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      padding: 0 2.8rem 2.5rem;
     }
 
-    .essay--wide h4 { font-size: 1.35rem; }
-    .essay--tall h4 { font-size: 1.4rem; }
+    .feature {
+      padding: 1.2rem 1.3rem;
+      background: rgba(255,255,255,0.5);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
 
-    .essay h4 a { color: var(--ink); text-decoration: none; }
-    .essay h4 a:hover { color: var(--vermillion); }
+    .feature .feat-name {
+      font-family: 'Fraunces', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
 
-    .essay .snippet {
-      font-size: 0.92rem;
+    .feature .feat-desc {
+      font-size: 0.9rem;
       color: var(--ink-soft);
       line-height: 1.55;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
-    .essay--tall .snippet { -webkit-line-clamp: 6; }
-
-    /* ── Newsletter ────────────────────────────── */
-    .newsletter {
-      position: relative;
-      background: var(--indigo);
-      color: var(--paper);
-      border-radius: var(--radius-lg);
-      padding: 3.2rem 3.5rem;
-      margin-bottom: 3rem;
-      overflow: hidden;
-    }
-
-    /* Decorative rings */
-    .newsletter::before {
-      content: '';
-      position: absolute;
-      right: -60px; bottom: -80px;
-      width: 300px; height: 300px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .newsletter::after {
-      content: '';
-      position: absolute;
-      right: 60px; top: -40px;
-      width: 140px; height: 140px;
-      border: 1px solid rgba(255,255,255,0.04);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .newsletter h3 {
-      font-family: 'Fraunces', 'Noto Serif SC', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .newsletter p {
-      color: rgba(255,255,255,0.55);
-      margin-bottom: 1.6rem;
-      max-width: 520px;
-      font-size: 1rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .newsletter .signup {
-      display: flex;
-      gap: 0.7rem;
-      max-width: 460px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .newsletter .signup input {
-      flex: 1;
-      padding: 0.8rem 1.1rem;
-      font-family: 'Crimson Pro', serif;
-      font-size: 1rem;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.13);
+    /* ════ ARCHITECTURE BLOCK ════ */
+    .arch-block {
+      margin: 0 2.8rem 2.5rem;
+      padding: 1.5rem 1.8rem;
+      background: rgba(28,25,21,0.02);
       border-radius: var(--radius-md);
-      color: #fff;
-      outline: none;
-      transition: border-color var(--ease);
+      border: 1px dashed var(--border-strong);
     }
 
-    .newsletter .signup input::placeholder { color: rgba(255,255,255,0.25); }
-    .newsletter .signup input:focus { border-color: rgba(255,255,255,0.35); }
-
-    .newsletter .signup button {
-      padding: 0.8rem 1.5rem;
+    .arch-block h5 {
       font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      background: var(--vermillion);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all var(--ease);
+      color: var(--ink-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .arch-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+    }
+
+    .arch-node {
+      padding: 0.35rem 0.7rem;
+      background: var(--paper);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      color: var(--ink-soft);
       white-space: nowrap;
     }
 
-    .newsletter .signup button:hover {
-      background: var(--vermillion-bright);
-      transform: translateY(-1px);
+    .arch-arrow {
+      color: var(--ink-muted);
+      font-size: 0.9rem;
     }
 
-    /* ── Footer ────────────────────────────────── */
-    .site-footer {
+    /* ════ PLACEHOLDER ════ */
+    .project-placeholder {
+      margin-bottom: 3rem;
+      padding: 2.5rem 2.8rem;
+      background: var(--paper);
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--radius-lg);
+      text-align: center;
+    }
+
+    .project-placeholder .coming-soon {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink-muted);
+    }
+
+    /* ════ EDUCATION ════ */
+    .edu-card {
+      background: var(--paper-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .edu-card .edu-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding-top: 1.8rem;
-      border-top: 1px solid var(--border);
+      align-items: baseline;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
     }
 
-    .site-footer .colophon {
+    .edu-card .school {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+    }
+
+    .edu-card .period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+
+    .edu-card .major {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.8rem;
+    }
+
+    .edu-card .highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .edu-card .highlight {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.63rem;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(197,80,50,0.05);
+      color: var(--vermillion);
+      border: 1px solid var(--vermillion-pale);
+    }
+
+    .edu-card .highlight.green {
+      background: rgba(125,144,114,0.06);
+      color: var(--celadon);
+      border-color: var(--celadon-pale);
+    }
+
+    .awards-list {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.9;
+      list-style: none;
+    }
+
+    .awards-list li::before {
+      content: '— ';
+      color: var(--brass);
+    }
+
+    /* ════ EXPERIENCE ════ */
+    .exp-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.6rem 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .exp-card .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .exp-card .company {
+      font-family: 'Fraunces', 'Noto Serif SC', serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .exp-card .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-muted);
+    }
+
+    .exp-card .exp-desc {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* ════ CONTACT ════ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1rem 1.3rem;
+      background: var(--paper-warm);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      transition: all var(--ease);
+    }
+
+    .contact-item:hover { box-shadow: var(--shadow-sm); border-color: var(--border-strong); }
+
+    .contact-item .contact-icon {
+      font-size: 1.2rem;
+      width: 36px; height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(197,80,50,0.06);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .contact-item .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .contact-item .contact-value {
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    /* ════ FOOTER ════ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0 2.5rem;
+      text-align: center;
       font-size: 0.85rem;
       color: var(--ink-muted);
       font-style: italic;
     }
 
-    .site-footer .footer-nav {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-      flex-wrap: wrap;
-    }
-
-    .site-footer .footer-nav a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--ink-muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: color var(--ease);
-    }
-
-    .site-footer .footer-nav a:hover { color: var(--vermillion); }
-
-    /* ── Scroll reveal ─────────────────────────── */
+    /* ════ REVEAL ════ */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
-                  transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
     }
 
     .reveal.is-visible {
@@ -581,253 +623,371 @@
       transform: translateY(0);
     }
 
-    /* ── Back to top ───────────────────────────── */
-    .back-to-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 50;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--paper);
-      border: 1px solid var(--border-strong);
-      border-radius: 50%;
-      cursor: pointer;
-      opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: all var(--ease);
-      font-family: 'Fraunces', serif;
-      font-size: 1.1rem;
-      color: var(--ink-muted);
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .back-to-top:hover {
-      background: var(--vermillion);
-      color: #fff;
-      border-color: var(--vermillion);
-    }
-
-    /* ═════════════════════════════════════════════════════════════════
-       RESPONSIVE
-       ═════════════════════════════════════════════════════════════════ */
-
-    @media (max-width: 900px) {
-      .masthead { padding: 2rem 1.2rem 0; }
-      .masthead-inner { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-      .main-content { padding: 2rem 1.2rem 3rem; }
-
-      .essay-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .essay--wide { grid-column: span 2; }
-      .essay--tall { grid-row: auto; }
-
-      .featured { padding: 2rem 1.5rem; }
-      .featured h2 { max-width: 100%; font-size: 1.6rem; }
-      .featured .dek { max-width: 100%; font-size: 1rem; }
-    }
-
-    @media (max-width: 600px) {
-      .essay-grid { grid-template-columns: 1fr; }
-      .essay--wide { grid-column: span 1; }
-
+    /* ════ RESPONSIVE ════ */
+    @media (max-width: 768px) {
+      .container { padding: 0 1.2rem; }
+      .masthead-inner { flex-direction: column; }
       .masthead-nav { gap: 1.2rem; }
-      .masthead-nav a { font-size: 0.65rem; }
-
-      .featured { padding: 1.5rem 1.2rem; border-radius: var(--radius-md); }
-      .featured h2 { font-size: 1.35rem; max-width: 100%; }
-
-      .newsletter { padding: 2rem 1.5rem; border-radius: var(--radius-md); }
-      .newsletter .signup { flex-direction: column; }
-
-      .site-footer { flex-direction: column; text-align: center; }
+      .project-header { padding: 1.5rem 1.3rem 0; }
+      .project .features { grid-template-columns: 1fr; padding: 0 1.3rem 1.5rem; }
+      .arch-block { margin: 0 1.3rem 1.5rem; }
+      .hero h2 { font-size: 1.4rem; }
+      .skills-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════ MASTHEAD ═══════════════ -->
-
+  <!-- ═══════════ MASTHEAD ═══════════ -->
   <header class="masthead">
-    <div class="masthead-inner">
-      <a href="/" class="logo">
-        <span class="zh">静室</span>
-        <span class="en">The Quiet Room</span>
-      </a>
-      <nav>
-        <ul class="masthead-nav">
-          <li><a href="#" class="active">文章</a></li>
-          <li><a href="#">札记</a></li>
-          <li><a href="#">项目</a></li>
-          <li><a href="#">关于</a></li>
-          <li><a href="#">订阅</a></li>
-        </ul>
-      </nav>
+    <div class="container">
+      <div class="masthead-inner">
+        <div>
+          <span class="identity">
+            Mernsu
+            <span class="role">大模型应用开发 · Python 后端工程</span>
+          </span>
+        </div>
+        <nav>
+          <ul class="masthead-nav">
+            <li><a href="#skills">技能</a></li>
+            <li><a href="#projects">项目</a></li>
+            <li><a href="#education">学历</a></li>
+            <li><a href="#contact">联系</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="ornamental-rule" aria-hidden="true"></div>
     </div>
-    <div class="ornamental-rule" aria-hidden="true"></div>
   </header>
 
-  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main class="container">
 
-  <main class="main-content">
-
-    <!-- ── Featured ──────────────────────────── -->
-    <article class="featured reveal">
-      <span class="flag">编辑精选</span>
-      <h2>
-        <a href="#">设计系统的熵：为什么所有的组件库最终都会走向混乱</a>
-      </h2>
-      <p class="dek">
-        热力学第二定律告诉我们，孤立系统的熵永远不会减少。设计系统亦然
-        ——每一个"仅此一次"的变体、每一次对规则的妥协，都是系统走向混沌的一小步。
+    <!-- ═══════════ HERO ═══════════ -->
+    <section class="hero reveal">
+      <span class="hero-tag">个人作品集</span>
+      <h2>具备大模型应用开发与 Python 后端工程双栈能力，能独立完成从 RAG 知识库、Agent 设计到 API 服务的完整系统落地</h2>
+      <p class="summary">
+        习惯以工程化思维拆解复杂问题，善于利用 LangChain、Dify 等开源生态快速验证想法并交付可用产品。
+        持续跟踪 LLM 应用工程化前沿（模型微调、Agent 框架、向量检索优化），期待在大模型应用开发岗位上创造实际业务价值。
       </p>
-      <div class="meta-row">
-        <span>2026 年 5 月 24 日</span>
-        <span class="reading-time">阅读 12 分钟</span>
-        <a href="#" class="tag">设计系统</a>
-        <a href="#" class="tag">前端架构</a>
-      </div>
-    </article>
-
-    <!-- ── Section divider ───────────────────── -->
-    <div class="section-divider">
-      <span class="numeral">I.</span>
-      <h3>近期文章</h3>
-      <span class="rule"></span>
-    </div>
-
-    <!-- ── Essay grid ────────────────────────── -->
-    <div class="essay-grid">
-
-      <article class="essay essay--wide reveal">
-        <div class="card-head">
-          <span class="date">2026.05.18</span>
-          <span class="category">技术随笔</span>
-        </div>
-        <h4><a href="#">Rust 所有权模型的认知负荷：一个初学者的挣扎与顿悟</a></h4>
-        <p class="snippet">借用检查器不是你的敌人，而是你最好的朋友——但前提是你得先学会说它的语言。记录我在学习 Rust 第三个月时的一次心智转变，以及为什么"fighting the borrow checker"本身就是一个重要的学习信号。</p>
-      </article>
-
-      <article class="essay reveal">
-        <div class="card-head">
-          <span class="date">2026.05.10</span>
-          <span class="category cat-reading">读书笔记</span>
-        </div>
-        <h4><a href="#">读《哥德尔、埃舍尔、巴赫》：在怪圈中寻找意义</a></h4>
-        <p class="snippet">侯世达用一个惊人的隐喻串联起了数学、艺术和音乐：自指。当系统开始谈论自身，奇妙的悖论和无限的层次便涌现而出。</p>
-      </article>
-
-      <article class="essay essay--tall reveal">
-        <div class="card-head">
-          <span class="date">2026.05.02</span>
-          <span class="category">设计沉思</span>
-        </div>
-        <h4><a href="#">论留白：东亚美学传统如何影响了我的界面设计哲学</a></h4>
-        <p class="snippet">宋代画家马远的"一角半边"构图，与现代 UI 设计中负空间的运用，存在着令人惊讶的共鸣。从南宋山水到瑞士平面设计，一条关于"空"的美学线索贯穿千年。留白不是缺失，而是一种积极的、充满张力的存在。在信息密度不断攀升的数字产品中，这种古老智慧比以往任何时候都更为珍贵。</p>
-      </article>
-
-      <article class="essay reveal">
-        <div class="card-head">
-          <span class="date">2026.04.25</span>
-          <span class="category cat-life">生活漫谈</span>
-        </div>
-        <h4><a href="#">京都的三十家喫茶店：一个慢旅者的手记</a></h4>
-        <p class="snippet">在自动贩售机和便利店之间，京都的昭和喫茶店像一个个时间胶囊，封存着咖啡、香烟和爵士乐交织的年代。</p>
-      </article>
-
-      <article class="essay essay--wide reveal">
-        <div class="card-head">
-          <span class="date">2026.04.14</span>
-          <span class="category">技术随笔</span>
-        </div>
-        <h4><a href="#">SQLite 的哲学：当"够用"比"强大"更值得追求</a></h4>
-        <p class="snippet">在一个痴迷于分布式系统和水平扩展的行业中，SQLite 以一种近乎固执的简单性提醒我们：大多数应用其实不需要那么复杂。这篇长文探讨了 SQLite 的设计决策如何体现了一种更深层的工程哲学。</p>
-      </article>
-
-      <article class="essay reveal">
-        <div class="card-head">
-          <span class="date">2026.03.30</span>
-          <span class="category cat-reading">读书笔记</span>
-        </div>
-        <h4><a href="#">重读《1984》：在监控资本主义时代</a></h4>
-        <p class="snippet">奥威尔笔下的电幕在今天有了新的形态——它不再藏在画框后面，而是被我们心甘情愿地握在手中。</p>
-      </article>
-
-      <article class="essay reveal">
-        <div class="card-head">
-          <span class="date">2026.03.22</span>
-          <span class="category">设计沉思</span>
-        </div>
-        <h4><a href="#">色彩命名的政治学：为什么"肉色"正在消失</a></h4>
-        <p class="snippet">CSS 颜色名称的演变史，折射出技术标准如何逐渐意识到自身的文化偏见。</p>
-      </article>
-
-    </div>
-
-    <!-- ── Newsletter ────────────────────────── -->
-    <section class="newsletter reveal">
-      <h3>信使 · The Messenger</h3>
-      <p>每月一封手写信，分享当月读到的好书、写下的代码、以及未曾发表的想法。无广告，无追踪，随时可退订。</p>
-      <form class="signup" onsubmit="event.preventDefault(); alert('感谢订阅！确认邮件已发送至您的邮箱。')">
-        <input type="email" placeholder="your@email.com" required>
-        <button type="submit">订阅</button>
-      </form>
     </section>
 
-    <!-- ── Footer ────────────────────────────── -->
-    <footer class="site-footer">
-      <p class="colophon">© 2026 静室 · The Quiet Room &mdash; 安静地写字，安静地阅读</p>
-      <ul class="footer-nav">
-        <li><a href="#">RSS</a></li>
-        <li><a href="#">GitHub</a></li>
-        <li><a href="#">Mastodon</a></li>
-        <li><a href="#">邮件</a></li>
-      </ul>
-    </footer>
+    <!-- ═══════════ SKILLS ═══════════ -->
+    <section id="skills">
+      <div class="section-head">
+        <span class="numeral">I.</span>
+        <h3>专业技能</h3>
+        <span class="rule"></span>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <h4>🧠 大模型应用开发</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">Dify</span>
+            <span class="skill-tag">RAG</span>
+            <span class="skill-tag">AI Agent</span>
+            <span class="skill-tag">Function Calling</span>
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">向量检索</span>
+            <span class="skill-tag">流式输出</span>
+            <span class="skill-tag">Qwen / GPT / ChatGLM</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <h4>⚙️ 后端 & 数据库</h4>
+          <div class="skill-tags">
+            <span class="skill-tag green">Python</span>
+            <span class="skill-tag green">FastAPI</span>
+            <span class="skill-tag green">Django</span>
+            <span class="skill-tag green">Flask</span>
+            <span class="skill-tag green">DRF</span>
+            <span class="skill-tag green">PostgreSQL</span>
+            <span class="skill-tag green">MySQL</span>
+            <span class="skill-tag green">Redis</span>
+            <span class="skill-tag green">Elasticsearch</span>
+            <span class="skill-tag green">Celery</span>
+          </div>
+        </div>
+
+        <div class="skill-card reveal">
+          <h4>🔬 深度学习 & 工具链</h4>
+          <div class="skill-tags">
+            <span class="skill-tag brass">PyTorch</span>
+            <span class="skill-tag brass">YOLO</span>
+            <span class="skill-tag brass">Transformer</span>
+            <span class="skill-tag brass">Qdrant / Chroma</span>
+            <span class="skill-tag brass">Docker</span>
+            <span class="skill-tag brass">Git</span>
+            <span class="skill-tag brass">Vue 3 / Element Plus</span>
+            <span class="skill-tag brass">Medical Imaging</span>
+            <span class="skill-tag brass">Java / C++</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ PROJECTS ═══════════ -->
+    <section id="projects">
+      <div class="section-head">
+        <span class="numeral">II.</span>
+        <h3>项目经历</h3>
+        <span class="rule"></span>
+      </div>
+
+      <!-- Project 1: ZhiYuan -->
+      <article class="project reveal">
+        <div class="project-header">
+          <span class="project-flag">开源项目</span>
+          <h3>知渊 ZhiYuan</h3>
+          <p class="project-subtitle">智能知识平台 — 深度检索，精准回答，一切以文档为本</p>
+          <a class="gh-link" href="https://github.com/mernsu/ZhiYuan" target="_blank" rel="noopener">
+            github.com/mernsu/ZhiYuan →
+          </a>
+          <div class="tech-bar">
+            <span class="tech">Python 3.10+</span>
+            <span class="tech">Flask</span>
+            <span class="tech">React 18</span>
+            <span class="tech">Ant Design 5</span>
+            <span class="tech">MySQL</span>
+            <span class="tech">Redis</span>
+            <span class="tech">MinIO</span>
+            <span class="tech">Elasticsearch</span>
+            <span class="tech">Docker Compose</span>
+            <span class="tech">Nginx</span>
+            <span class="tech">LangChain</span>
+            <span class="tech">MCP 协议</span>
+            <span class="tech">50+ LLM</span>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <p class="feat-name">DeepDoc 文档解析</p>
+            <p class="feat-desc">自研布局分析 + OCR 引擎，精准提取 PDF/Word/Excel/PPT/图片中的表格、标题层级与正文结构</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">混合检索架构</p>
+            <p class="feat-desc">BM25 关键词 + 向量语义 + GraphRAG 知识图谱 + RRF 融合 + 重排序，五层检索管线</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">Agent 工作流引擎</p>
+            <p class="feat-desc">14 个可拖拽编排组件，ReAct 推理循环，支持 MCP 协议扩展外部工具</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">多模型抽象层</p>
+            <p class="feat-desc">统一适配 OpenAI / DeepSeek / 通义千问 / 智谱等 50+ 提供商，一行配置切换模型</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">ML 智能切片</p>
+            <p class="feat-desc">基于机器学习的文档分块，自动识别标题层级、表格结构、问答对边界</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">多租户 RBAC</p>
+            <p class="feat-desc">团队协作空间、角色权限控制、API Key 管理与用量统计</p>
+          </div>
+        </div>
+
+        <div class="arch-block">
+          <h5>系统架构</h5>
+          <div class="arch-flow">
+            <span class="arch-node">React + Ant Design</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Flask REST API</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">RAG Engine</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">DeepDoc 解析</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">混合检索</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Agent 引擎</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">LLM 抽象层</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">MySQL / Redis / MinIO / ES</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: CtLungDetect -->
+      <article class="project reveal">
+        <div class="project-header">
+          <span class="project-flag" style="color: var(--celadon);">AI + 医疗</span>
+          <h3>CTLungDetect</h3>
+          <p class="project-subtitle">肺结节智能检测系统 — 基于 Attention U-Net 和 SVM 的 CT 影像辅助诊断</p>
+          <a class="gh-link" href="https://github.com/mernsu/CTLungDetect" target="_blank" rel="noopener">
+            github.com/mernsu/CTLungDetect →
+          </a>
+          <div class="tech-bar">
+            <span class="tech">Python Flask</span>
+            <span class="tech">PyTorch</span>
+            <span class="tech">Vue 3</span>
+            <span class="tech">Vite</span>
+            <span class="tech">Element Plus</span>
+            <span class="tech">MySQL</span>
+            <span class="tech">pydicom</span>
+            <span class="tech">SimpleITK</span>
+            <span class="tech">pyradiomics</span>
+            <span class="tech">Attention U-Net</span>
+            <span class="tech">ResNet-18</span>
+            <span class="tech">SVM</span>
+            <span class="tech">Qwen / DeepSeek</span>
+          </div>
+        </div>
+
+        <div class="features">
+          <div class="feature">
+            <p class="feat-name">7 步 AI 检测管线</p>
+            <p class="feat-desc">图像加载归一化 → Attention U-Net 分割 → pyradiomics 93 维特征提取 → ResNet-18 512 维深度特征 → SVM 分类 → 临床先验融合 → Lung-RADS 5 级分级</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">Attention U-Net 结节分割</p>
+            <p class="feat-desc">自研注意力门控 U-Net（5 层编码器-解码器），精准分割肺结节边界，支持 LUNA16 数据集训练</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">影像组学 + 深度学习融合</p>
+            <p class="feat-desc">Radiomics 93 维形状纹理特征 + ResNet-18 512 维 CNN 特征 → PCA 降维 → SVM 良恶性分类，融合结节直径临床先验概率</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">LLM 诊断报告生成</p>
+            <p class="feat-desc">集成 Qwen / DeepSeek 大模型自动生成结构化诊断报告，支持流式输出与 PDF 导出（中文宋体渲染）</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">多模态输入支持</p>
+            <p class="feat-desc">2D 图像（DICOM / JPG / PNG / NPY）、3D CT 序列（ZIP）、MHD 体数据、3D NPY 数组，自动格式检测与窗宽窗位调节</p>
+          </div>
+          <div class="feature">
+            <p class="feat-name">医师审核工作流</p>
+            <p class="feat-desc">掩码修正、报告修订、患者管理、历史追溯、Dashboard 统计 —— 完整的临床辅助诊断闭环</p>
+          </div>
+        </div>
+
+        <div class="arch-block">
+          <h5>检测管线</h5>
+          <div class="arch-flow">
+            <span class="arch-node">CT 影像输入</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">肺窗归一化</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Attention U-Net</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Radiomics</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">ResNet-18</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">PCA + SVM</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Lung-RADS 分级</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">LLM 报告</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ═══════════ EXPERIENCE ═══════════ -->
+    <section id="experience">
+      <div class="section-head">
+        <span class="numeral">III.</span>
+        <h3>实习经历</h3>
+        <span class="rule"></span>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <span class="company">成都国信安信息产业基地有限公司</span>
+          <span class="exp-period">2025.01 · 项目负责人</span>
+        </div>
+        <p class="exp-desc">
+          基于 Python、PyTorch 及 YOLOv11 框架，领导团队开发课堂行为实时检测系统。
+          负责模型选型、数据标注及训练调优，利用 Django 搭建后端接口，借助 AI Agent 辅助生成前端页面，
+          实现对举手、读写、趴桌等行为的检测统计，打通视频输入到结果可视化的全链路。
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════ EDUCATION ═══════════ -->
+    <section id="education">
+      <div class="section-head">
+        <span class="numeral">IV.</span>
+        <h3>教育经历</h3>
+        <span class="rule"></span>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-header">
+          <span class="school">成都信息工程大学 · 人工智能</span>
+          <span class="period">2022.09 – 2026.06</span>
+        </div>
+        <p class="major">本科 · 绩点 3.91 / 专业前 4% · CET-6</p>
+        <div class="highlights">
+          <span class="highlight">四川省优秀毕业生</span>
+          <span class="highlight green">校级优秀毕业生</span>
+          <span class="highlight">蓝桥杯 C++ 省赛一等奖</span>
+          <span class="highlight green">ACM 校赛铜奖</span>
+          <span class="highlight">智星挑战赛 C++ 全国三等奖</span>
+          <span class="highlight green">三次校级二等奖学金</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ CONTACT ═══════════ -->
+    <section id="contact">
+      <div class="section-head">
+        <span class="numeral">V.</span>
+        <h3>联系方式</h3>
+        <span class="rule"></span>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-item reveal">
+          <div class="contact-icon">📧</div>
+          <div>
+            <p class="contact-label">Email</p>
+            <p class="contact-value">mernsub71@163.com</p>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">🐙</div>
+          <div>
+            <p class="contact-label">GitHub</p>
+            <p class="contact-value"><a href="https://github.com/mernsu" target="_blank" rel="noopener">github.com/mernsu</a></p>
+          </div>
+        </div>
+        <div class="contact-item reveal">
+          <div class="contact-icon">💬</div>
+          <div>
+            <p class="contact-label">QQ</p>
+            <p class="contact-value">3139696615</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
-  <!-- ── Back to top ────────────────────────── -->
-  <button class="back-to-top" aria-label="返回顶部" title="返回顶部">&uarr;</button>
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 Mernsu · 感谢阅读至此</p>
+    </div>
+  </footer>
 
   <script>
-    /* ── Scroll reveal with IntersectionObserver ── */
-    const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-    revealEls.forEach((el, i) => {
-      /* Stagger each card slightly for a cascading reveal */
-      el.style.transitionDelay = `${Math.min(i, 12) * 0.06}s`;
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${Math.min(i, 15) * 0.05}s`;
       observer.observe(el);
-    });
-
-    /* ── Back-to-top visibility ─────────────────── */
-    const backBtn = document.querySelector('.back-to-top');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        backBtn.classList.add('visible');
-      } else {
-        backBtn.classList.remove('visible');
-      }
-    }, { passive: true });
-
-    backBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   </script>
 
